@@ -1,469 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Michael Dorkenwald</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0a0a0f;
-  --bg-card: #12121a;
-  --bg-card-hover: #1a1a26;
-  --text: #e8e6e3;
-  --text-dim: #8a8891;
-  --text-bright: #ffffff;
-  --accent: #4af;
-  --accent2: #f47;
-  --border: #222233;
-  --mono: 'JetBrains Mono', monospace;
-  --serif: 'Source Serif 4', Georgia, serif;
-  --sans: 'DM Sans', sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Michael Dorkenwald — Multimodal AI Research</title>
+  <meta name="description" content="AI Scientist Intern at Mistral AI; PhD candidate at UvA / ELLIS. Multimodal LLM pretraining and post-training, video understanding, and model efficiency.">
+  <meta name="theme-color" content="#f8f9f7">
+  <link rel="canonical" href="https://mdorkenwald.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mdorkenwald.com/">
+  <meta property="og:title" content="Michael Dorkenwald — Multimodal AI Research">
+  <meta property="og:description" content="AI Scientist Intern at Mistral AI; PhD candidate at UvA / ELLIS. Multimodal LLM pretraining and post-training, video understanding, and model efficiency.">
+  <meta property="og:image" content="https://mdorkenwald.com/images/avatar.jpg">
+  <meta property="og:image:alt" content="Michael Dorkenwald">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Michael Dorkenwald — Multimodal AI Research">
+  <meta name="twitter:description" content="AI Scientist Intern at Mistral AI; PhD candidate at UvA / ELLIS. Multimodal LLM pretraining and post-training, video understanding, and model efficiency.">
+  <meta name="twitter:image" content="https://mdorkenwald.com/images/avatar.jpg">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8f9f7;
+      --paper: #ffffff;
+      --ink: #172e3b;
+      --body: #3e4e57;
+      --muted: #616f75;
+      --accent: #17675d;
+      --accent-soft: #e8f0ec;
+      --line: #dce2df;
+      --serif: 'Source Serif 4', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
+    body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+    ::selection { background: #cde3d9; color: var(--ink); }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    a:hover { color: var(--ink); }
+    a, summary { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; border-radius: 2px; }
+    img { display: block; max-width: 100%; height: auto; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { color: var(--ink); }
+    .container { width: min(1000px, calc(100% - 96px)); margin-inline: auto; }
+    .skip-link { position: fixed; top: -100px; left: 20px; z-index: 20; padding: 10px 18px; background: var(--ink); color: white; }
+    .skip-link:focus { top: 12px; color: white; }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+    /* Navigation */
+    .site-header { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--line); background: rgba(248,249,247,.96); }
+    .header-inner { min-height: 64px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .wordmark { color: var(--ink); font-weight: 600; font-size: 15px; text-decoration: none; letter-spacing: -.3px; }
+    .wordmark span { color: var(--accent); }
+    nav { display: flex; gap: 27px; align-items: center; }
+    nav a { color: var(--body); font-size: 13px; font-weight: 500; text-decoration: none; padding-block: 12px; }
+    nav a:hover { color: var(--accent); }
+    .arrow { display: inline-block; margin-left: 4px; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
+    /* Introduction */
+    .hero { padding-block: 48px 38px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 56px; align-items: start; }
+    h1 { font: 500 clamp(36px, 4.3vw, 48px)/1.15 var(--serif); letter-spacing: -1.4px; }
+    .hero-lead, .hero-bio, .hero-history { max-width: 690px; color: var(--body); font-size: 17px; line-height: 1.7; }
+    .hero-lead { margin-top: 20px; }
+    .hero-bio, .hero-history { margin-top: 16px; }
+    .hero-lead a, .hero-bio a { text-decoration-color: #a8beb6; }
+    .portrait { padding-top: 5px; }
+    .portrait img { width: 170px; aspect-ratio: 385 / 425; object-fit: cover; border-radius: 50%; }
+    .portrait figcaption { margin-top: 13px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .portrait figcaption strong { color: var(--ink); font-weight: 500; }
+    .hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin-top: 22px; }
+    .hero-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; font-weight: 600; text-decoration: none; }
+    .hero-links .button { padding: 9px 17px; border: 1px solid var(--ink); border-radius: 4px; background: var(--ink); color: white; }
+    .hero-links .button:hover { background: var(--accent); border-color: var(--accent); }
 
-::selection { background: var(--accent); color: var(--bg); }
+    /* Selected research */
+    .section { padding-block: 30px; }
+    #research { border-top: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 13px; }
+    h2 { font: 500 28px/1.25 var(--serif); letter-spacing: -.5px; }
+    .section-heading > a { font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .section-intro { max-width: 690px; font-size: 13px; color: var(--muted); }
+    .research-item { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 25px; align-items: start; padding-block: 24px; border-bottom: 1px solid var(--line); scroll-margin-top: 85px; }
+    .research-item:last-child { border-bottom: 0; padding-bottom: 8px; }
+    .research-meta { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; padding-top: 4px; font-size: 11px; }
+    .research-meta .topic { color: var(--ink); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+    .research-meta .venue { color: var(--accent); font-weight: 700; letter-spacing: .5px; }
+    .research-meta .credit { color: var(--muted); }
+    .research-copy h3 { font: 600 20px/1.35 var(--serif); letter-spacing: -.2px; }
+    .research-copy h3 a { color: inherit; text-decoration: none; }
+    .research-copy h3 a:hover { color: var(--accent); }
+    .research-copy > p { margin-top: 10px; font-size: 14px; line-height: 1.7; }
+    .research-copy > .authors { margin-top: 7px; font-size: 12px; line-height: 1.65; }
+    .research-copy .research-detail { font-size: 12px; color: var(--muted); }
+    .resource-links { display: flex; flex-wrap: wrap; gap: 4px 19px; margin-top: 9px; }
+    .resource-links a { display: inline-flex; align-items: center; min-height: 34px; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #bccfc6; }
+    .resource-links a:hover { border-color: var(--accent); }
 
-/* --- Scroll progress bar --- */
-.progress-bar {
-  position: fixed; left: 0; top: 0; width: 3px; height: 0%;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
-  z-index: 100; transition: height 0.1s linear;
-}
+    /* Experience */
+    .experience-section { margin-top: 16px; padding-block: 36px; background: #edf1ee; border-block: 1px solid var(--line); }
+    .experience-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 70px; }
+    .experience-aside > p { margin-top: 17px; font-size: 14px; }
+    .experience-item { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 18px; padding-block: 21px; border-bottom: 1px solid #d5ddd7; }
+    .experience-item:first-child { padding-top: 0; }
+    .experience-item:last-child { padding-bottom: 0; border: 0; }
+    .experience-date { padding-top: 3px; font-size: 12px; color: var(--muted); }
+    .experience-item h3 { font-size: 16px; line-height: 1.4; font-weight: 600; }
+    .experience-role { margin-top: 3px; color: var(--accent); font-size: 13px; font-weight: 500; }
+    .experience-description { margin-top: 8px; font-size: 13px; line-height: 1.75; }
+    .experience-papers { margin-top: 14px; }
+    .experience-papers h4 { margin: 0 0 8px; color: var(--ink); font-size: 12px; font-weight: 600; }
+    .experience-paper-list { list-style: none; margin: 0; padding: 0; }
+    .experience-paper-list li + li { margin-top: 10px; }
+    .experience-paper-list a { display: inline-block; font-size: 13px; line-height: 1.5; text-decoration-color: #a8beb6; }
+    .experience-paper-list span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .experience-papers details { margin-top: 6px; }
+    .experience-papers summary { font-size: 12px; padding-block: 8px; }
 
-/* --- Nav --- */
-nav {
-  position: fixed; top: 0; right: 0; z-index: 99;
-  padding: 24px 36px; display: flex; gap: 28px;
-  background: rgba(10,10,15,0.85); backdrop-filter: blur(8px); border-radius: 0 0 0 8px;
-}
-nav a {
-  color: var(--text-dim); text-decoration: none; font-family: var(--mono);
-  font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s;
-}
-nav a:hover { color: var(--accent); }
+    /* Publication list */
+    .publications-section { padding-top: 8px; }
+    .publications-section h2 { font-size: 24px; }
+    .publication { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 25px; padding-block: 23px; border-bottom: 1px solid var(--line); }
+    .publication:last-child { border-bottom: 0; }
+    .publication-venue { color: var(--accent); font-size: 11px; font-weight: 600; padding-top: 3px; }
+    .publication h3 { font-size: 15px; font-weight: 600; line-height: 1.55; }
+    .publication h3 a { color: var(--ink); text-decoration: none; }
+    .publication h3 a:hover { color: var(--accent); }
+    .authors { margin-top: 5px; font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .authors strong { font-weight: 600; color: var(--ink); }
+    .publication-note { margin-top: 6px; font-size: 13px; }
+    .publication .resource-links { margin-top: 8px; }
+    details { margin-top: 12px; }
+    summary { width: fit-content; cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; padding-block: 13px; }
+    summary:hover { color: var(--ink); }
+    details[open] > summary { margin-bottom: 4px; }
 
-section { max-width: 820px; margin: 0 auto; padding: 0 32px; }
+    /* Updates and contact */
+    .updates-section { border-top: 1px solid var(--line); padding-block: 38px 50px; }
+    .updates-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 70px; }
+    .updates { list-style: none; margin: 0; padding: 0; }
+    .updates li { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 22px; padding-block: 12px; font-size: 13px; }
+    .updates li:first-child { padding-top: 0; }
+    .updates time { font-size: 11px; color: var(--muted); padding-top: 3px; }
+    .contact-section { border-top: 1px solid var(--line); padding-block: 32px; }
+    .contact-inner { display: flex; align-items: center; justify-content: space-between; gap: 38px; }
+    .contact-section h2 { font-size: 27px; }
+    .contact-section p { max-width: 590px; margin-top: 12px; font-size: 14px; }
+    .email-address { color: var(--accent); padding-block: 5px; overflow-wrap: anywhere; }
+    .contact-links { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; flex-shrink: 0; font-size: 14px; }
+    footer { padding-block: 21px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    footer a { color: var(--muted); text-decoration: none; }
 
-/* --- Hero --- */
-.hero {
-  display: flex; flex-direction: column; justify-content: center;
-  padding-top: 120px; padding-bottom: 80px;
-}
-.hero-top {
-  display: flex; align-items: flex-start; gap: 32px; margin-bottom: 24px;
-  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-}
-.hero-photo {
-  width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-  border: 2px solid var(--border); flex-shrink: 0;
-}
-.hero-intro { display: flex; flex-direction: column; }
-.hero-label {
-  font-family: var(--mono); font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-}
-.hero h1 {
-  font-family: var(--serif); font-size: clamp(28px, 4vw, 44px); font-weight: 700;
-  line-height: 1.1; color: var(--text-bright); margin-bottom: 8px;
-}
-.hero-tagline {
-  font-family: var(--serif); font-style: italic; font-size: 17px;
-  color: var(--text-dim);
-}
-.hero-bio {
-  font-size: 15px; line-height: 1.8; color: var(--text); max-width: 640px;
-  margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-}
-.hero-bio a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
-.hero-bio a:hover { border-bottom-color: var(--accent); }
-.hero-links {
-  display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 1.0s forwards;
-}
-.hero-links a {
-  font-family: var(--mono); font-size: 12px; color: var(--text); text-decoration: none;
-  padding: 6px 14px; border: 1px solid var(--border); border-radius: 4px;
-  transition: all 0.3s; letter-spacing: 0.5px;
-}
-.hero-links a:hover { border-color: var(--accent); color: var(--accent); background: rgba(68,170,255,0.05); }
-
-/* --- Section Headers --- */
-.section-header { padding-top: 80px; margin-bottom: 40px; }
-.section-header h2 { font-family: var(--serif); font-size: 28px; color: var(--text-bright); margin-bottom: 8px; }
-.section-line { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; }
-
-/* --- News --- */
-.news-list { list-style: none; }
-.news-list li { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; align-items: baseline; }
-.news-list li:last-child { border-bottom: none; }
-.news-date { font-family: var(--mono); font-size: 12px; color: var(--text-dim); white-space: nowrap; min-width: 90px; }
-.news-text { font-size: 14px; color: var(--text); }
-.news-text a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
-.news-text a:hover { border-bottom-style: solid; }
-.news-tag {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-  padding: 2px 8px; border-radius: 3px; margin-left: 8px; vertical-align: middle;
-}
-.tag-paper { background: rgba(68,170,255,0.15); color: var(--accent); }
-.tag-talk { background: rgba(255,68,119,0.15); color: var(--accent2); }
-.tag-misc { background: rgba(255,255,255,0.08); color: var(--text-dim); }
-
-/* --- Research --- */
-.video-stack { display: flex; flex-direction: column; gap: 4px; margin-bottom: 60px; }
-.stack-layer {
-  display: flex; align-items: center; gap: 16px; padding: 14px 20px;
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
-  transition: all 0.3s; cursor: default;
-}
-.stack-layer:hover { background: var(--bg-card-hover); border-color: var(--accent); transform: translateX(8px); }
-.stack-icon { font-size: 18px; width: 36px; text-align: center; }
-.stack-label { font-family: var(--mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; min-width: 150px; }
-.stack-desc { font-size: 14px; color: var(--text-dim); }
-.stack-papers { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--text-dim); white-space: nowrap; }
-.stack-papers a { color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
-.stack-papers a:hover { color: var(--accent); }
-
-/* --- Publications --- */
-.pub-year-label {
-  font-family: var(--mono); font-size: 12px; color: var(--text-dim); letter-spacing: 2px;
-  margin-top: 36px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
-}
-.pub-card { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: all 0.3s; }
-.pub-card:hover { background: rgba(255,255,255,0.02); padding-left: 12px; margin-left: -12px; }
-.pub-card h3 { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 4px; line-height: 1.4; }
-.pub-authors { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
-.pub-authors strong { color: var(--text); }
-.pub-venue { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 8px; }
-.pub-links { display: flex; gap: 10px; flex-wrap: wrap; }
-.pub-links a {
-  font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none;
-  padding: 3px 10px; border: 1px solid var(--border); border-radius: 3px; transition: all 0.3s;
-}
-.pub-links a:hover { color: var(--accent); border-color: var(--accent); }
-
-/* --- Experience --- */
-.exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
-.exp-item:last-child { border-bottom: none; }
-.exp-when { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
-.exp-where { font-weight: 700; color: var(--text-bright); font-size: 15px; margin-bottom: 4px; }
-.exp-role { color: var(--accent); font-size: 14px; margin-bottom: 6px; }
-.exp-desc { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
-
-/* --- Footer --- */
-footer {
-  text-align: center; padding: 40px; font-family: var(--mono); font-size: 11px;
-  color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 80px;
-}
-footer a { color: var(--text-dim); text-decoration: none; }
-footer a:hover { color: var(--accent); }
-
-@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-@media (max-width: 768px) {
-  nav { padding: 14px 18px; gap: 14px; }
-  nav a { font-size: 11px; }
-  section { padding: 0 20px; }
-  .exp-item { grid-template-columns: 1fr; gap: 8px; }
-  .hero-top { flex-direction: column; align-items: center; text-align: center; }
-  .hero-photo { width: 100px; height: 100px; }
-  .stack-papers { display: none; }
-  .stack-label { min-width: 110px; font-size: 11px; }
-}
-</style>
+    @media (max-width: 900px) {
+      .container { width: calc(100% - 64px); }
+      .hero-grid { grid-template-columns: minmax(0, 1fr) 150px; gap: 35px; }
+      .portrait img { width: 150px; }
+      .research-item { grid-template-columns: 120px minmax(0, 1fr); gap: 24px; }
+      .experience-layout, .updates-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 32px; }
+      .experience-item { grid-template-columns: 90px minmax(0, 1fr); gap: 13px; }
+      .contact-inner { align-items: flex-start; flex-direction: column; gap: 23px; }
+    }
+    @media (max-width: 640px) {
+      html { scroll-padding-top: 126px; }
+      .container { width: calc(100% - 40px); }
+      .header-inner { min-height: 88px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 0; padding-block: 9px; }
+      .wordmark { font-size: 14px; }
+      nav { width: 100%; gap: 0; justify-content: space-between; }
+      nav a { font-size: 11px; padding-block: 6px; }
+      .hero { padding-block: 30px; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+      .hero-main { display: contents; }
+      .hero-heading { grid-row: 1; padding-right: 0; }
+      h1 { max-width: 340px; font-size: clamp(35px, 9vw, 45px); letter-spacing: -1.2px; }
+      .portrait { grid-row: 2; display: flex; align-items: center; gap: 17px; padding: 0; }
+      .portrait img { width: 76px; }
+      .portrait figcaption { margin: 0; font-size: 12px; }
+      .hero-description { grid-row: 3; }
+      .hero-lead, .hero-bio, .hero-history { font-size: 16px; }
+      .hero-lead { margin-top: 0; }
+      .hero-bio, .hero-history { margin-top: 14px; }
+      .hero-links { margin-top: 18px; gap: 6px 16px; }
+      .section { padding-block: 28px; }
+      h2 { font-size: 28px; }
+      .section-heading { gap: 12px; flex-wrap: wrap; }
+      .section-intro { font-size: 14px; }
+      .research-item { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-block: 22px; scroll-margin-top: 120px; }
+      .research-meta { flex-direction: row; flex-wrap: wrap; gap: 4px 12px; padding-top: 0; }
+      .research-meta .topic { flex-basis: 100%; margin-bottom: 0; }
+      .research-copy h3 { font-size: 21px; }
+      .experience-section { padding-block: 33px; }
+      .experience-layout, .updates-layout { grid-template-columns: minmax(0, 1fr); gap: 27px; }
+      .experience-aside > p { margin-top: 12px; }
+      .experience-item { grid-template-columns: 84px minmax(0, 1fr); gap: 12px; }
+      .experience-date { font-size: 11px; }
+      .experience-item h3 { font-size: 15px; }
+      .publication { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-block: 20px; }
+      .publications-section { padding-top: 12px; }
+      .updates-section { margin-top: 12px; padding-block: 29px 35px; }
+      .updates li { grid-template-columns: 65px minmax(0, 1fr); gap: 15px; }
+      .contact-section { padding-block: 33px; }
+      .contact-section h2 { font-size: 27px; }
+      .contact-links { font-size: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      :root { --bg: white; --ink: black; --body: #222; --muted: #444; --accent: #222; }
+      body { font-size: 11pt; }
+      .container { width: 100%; }
+      .site-header, .skip-link, .updates-section, footer { display: none; }
+      .hero, .section, .experience-section, .contact-section { padding-block: 18px; }
+      .hero-grid { grid-template-columns: 1fr 120px; gap: 30px; }
+      .portrait img { width: 120px; }
+      h1 { font-size: 32pt; }
+      h2 { font-size: 22pt; }
+      .research-item, .publication, .experience-item { break-inside: avoid; }
+      .contact-section { background: white; color: black; }
+      .contact-section h2, .email-address { color: black; }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Michael Dorkenwald",
+      "url": "https://mdorkenwald.com/",
+      "image": "https://mdorkenwald.com/images/avatar.jpg",
+      "jobTitle": "AI Scientist Intern and PhD Candidate",
+      "worksFor": {"@type": "Organization", "name": "Mistral AI", "url": "https://mistral.ai/"},
+      "affiliation": {"@type": "CollegeOrUniversity", "name": "University of Amsterdam"},
+      "knowsAbout": ["Multimodal large language models", "Pretraining", "Post-training", "Vision-language learning", "Video understanding", "Spatial grounding", "Temporal understanding", "Multimodal evaluation", "Model efficiency", "Self-supervised learning"],
+      "sameAs": ["https://github.com/mdorkenw", "https://scholar.google.com/citations?user=KY5nvLUAAAAJ", "https://www.linkedin.com/in/michael-dorkenwald-29303b182"]
+    }
+  </script>
 </head>
 <body>
-
-<div class="progress-bar" id="progressBar"></div>
-
-<nav>
-  <a href="#home">Home</a>
-  <a href="#research">Research</a>
-  <a href="#publications">Papers</a>
-  <a href="#experience">Experience</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-top">
-    <img src="images/avatar.jpg" alt="Michael Dorkenwald" class="hero-photo">
-    <div class="hero-intro">
-      <div class="hero-label">Student Researcher @ Google DeepMind &middot; PhD Candidate @ UvA</div>
-      <h1>Michael Dorkenwald</h1>
-      <div class="hero-tagline">Teaching AI models to understand and learn from videos.</div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="#home" aria-label="Michael Dorkenwald, home">Michael Dorkenwald<span>.</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <div class="hero-bio">
-    I'm a Student Researcher at <a href="https://deepmind.google/">Google DeepMind</a> and a PhD candidate at the <a href="https://www.uva.nl/en">University of Amsterdam</a>, supervised by <a href="https://yukimasano.github.io/">Yuki Asano</a> and <a href="https://www.ceessnoek.info/">Cees Snoek</a>, as part of the <a href="https://ellis.eu/">ELLIS PhD program</a>. Video shows how the world changes over time. I work on models that can learn this without supervision, connect it with language, and do so efficiently.
-    <br><br>
-    Before that, I got my MSc in Physics from <a href="https://www.uni-heidelberg.de/en">Heidelberg University</a>, working on generative video modeling in <a href="https://hci.iwr.uni-heidelberg.de/people/bommer">Bj&ouml;rn Ommer's</a> CompVis group. I also spent time as a research intern at <a href="https://aws.amazon.com/rekognition/">AWS Rekognition</a> and had the pleasure of visiting <a href="https://www.cs.ryerson.ca/kosta/">Kosta Derpanis's</a> lab in Toronto.
-  </div>
+  <main id="main">
+    <section class="hero container" id="home" aria-labelledby="name">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <div class="hero-heading">
+            <h1 id="name">Michael Dorkenwald</h1>
+          </div>
+          <div class="hero-description">
+            <p class="hero-lead">I’m an AI Scientist Intern at <a href="https://mistral.ai/">Mistral AI</a>, working on multimodal large language models across pretraining and post-training. I’m also a PhD candidate at the <a href="https://www.uva.nl/en">University of Amsterdam</a> / <a href="https://ellis.eu/">ELLIS</a>, advised by <a href="https://yukimasano.github.io/">Yuki Asano</a> and <a href="https://www.ceessnoek.info/">Cees Snoek</a>.</p>
+            <p class="hero-bio">My research focuses on <a href="#pin">vision–language learning</a>, <a href="#tvbench">video understanding</a>, and <a href="#elastic">computational efficiency</a>.</p>
+            <p class="hero-history">Previously, I was a Student Researcher at Google DeepMind and a Research Intern at Amazon Web Services (AWS) on the Rekognition team.</p>
+            <div class="hero-links" aria-label="Profile and contact links">
+              <a class="button" href="#contact">Email <span class="arrow" aria-hidden="true">↓</span></a>
+              <a href="https://github.com/mdorkenw">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+              <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&amp;hl=en">Google Scholar <span class="arrow" aria-hidden="true">↗</span></a>
+              <a href="https://www.linkedin.com/in/michael-dorkenwald-29303b182">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </div>
+        <figure class="portrait">
+          <img src="images/avatar.jpg" alt="Portrait of Michael Dorkenwald" width="385" height="425" fetchpriority="high">
+          <figcaption><strong>AI Scientist Intern · Mistral AI</strong><br>PhD candidate · UvA / ELLIS</figcaption>
+        </figure>
+      </div>
+    </section>
 
-  <div class="hero-links">
-    <a href="mailto:m.dorkenwald@gmail.com">Email</a>
-    <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&hl=de&oi=ao">Google Scholar</a>
-    <a href="https://github.com/mdorkenw">GitHub</a>
-    <a href="cv/CV_Michael_Dorkenwald_twopage.pdf">CV</a>
-    <a href="https://www.linkedin.com/in/michael-dorkenwald-29303b182">LinkedIn</a>
-  </div>
-</section>
+    <section class="section container" id="research" aria-labelledby="research-title">
+      <div class="section-heading">
+        <h2 id="research-title">Selected research</h2>
+        <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&amp;hl=en">Google Scholar <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="section-intro">First-author and co-first-author papers. * denotes equal contribution.</p>
 
-<!-- NEWS -->
-<section>
-  <div class="section-header">
-    <h2>News</h2>
-    <div class="section-line"></div>
-  </div>
+      <article class="research-item" id="pin" aria-labelledby="pin-title">
+        <div class="research-meta"><span class="topic">Spatial grounding</span><span class="venue">CVPR 2024</span><span class="credit">First author</span></div>
+        <div class="research-copy">
+          <h3 id="pin-title"><a href="https://quva-lab.github.io/PIN/">PIN: Positional Insert Unlocks Object Localisation Abilities in VLMs</a></h3>
+          <p class="authors"><strong>M. Dorkenwald</strong>, N. Barazani, C. Snoek, Y. Asano</p>
+          <p>We introduce PIN, a learned spatial prompt that enables frozen vision–language models to localize objects. Training uses synthetic data and next-token prediction, without manually annotated detection data.</p>
+          <p class="research-detail">Adaptation of OpenFlamingo and BLIP-2 · Zero-shot object localization</p>
+          <div class="resource-links" aria-label="PIN resources">
+            <a href="https://arxiv.org/abs/2402.08657">Paper</a>
+            <a href="https://github.com/QUVA-Lab/PIN#training">Training code</a>
+            <a href="https://quva-lab.github.io/PIN/">Project</a>
+          </div>
+        </div>
+      </article>
 
-  <ul class="news-list">
-    <li>
-      <span class="news-date">Apr 2026</span>
-      <span class="news-text">Joined <strong>Google DeepMind</strong> as a Student Researcher <span class="news-tag tag-misc">position</span></span>
-    </li>
-    <li>
-      <span class="news-date">Sep 2025</span>
-      <span class="news-text">Paper accepted to <strong>NeurIPS'25</strong> on <a href="https://arxiv.org/abs/2510.17700">elastic pruning of ViTs</a> <span class="news-tag tag-paper">paper</span></span>
-    </li>
-    <li>
-      <span class="news-date">Jul 2025</span>
-      <span class="news-text">Paper accepted to <strong>BMVC'25</strong> on a new <a href="https://arxiv.org/abs/2410.07752">video-language benchmark</a> <span class="news-tag tag-paper">paper</span></span>
-    </li>
-    <li>
-      <span class="news-date">Jun 2025</span>
-      <span class="news-text">Paper accepted to <strong>TMLR</strong> on <a href="https://openreview.net/forum?id=kZLANTp6Vw&nesting=2&sort=date-desc">LLMs as implicit optimizers for VLMs</a> <span class="news-tag tag-paper">paper</span></span>
-    </li>
-    <li>
-      <span class="news-date">Nov 2024</span>
-      <span class="news-text">Gave a talk at the <a href="https://communities.surf.nl/large-scale-computing/artikel/surf-research-bootcamp-2024">SURF Research Bootcamp</a> on large-scale video learning <span class="news-tag tag-talk">talk</span></span>
-    </li>
-    <li>
-      <span class="news-date">Sep 2024</span>
-      <span class="news-text">Workshop organizer: <a href="https://sslwin.org/">"Self-Supervised Learning: What is Next?"</a> at ECCV'24 <span class="news-tag tag-talk">organizer</span></span>
-    </li>
-    <li>
-      <span class="news-date">Jul 2024</span>
-      <span class="news-text">Paper accepted to <strong>ECCV'24</strong> on <a href="https://quva-lab.github.io/SIGMA/">SIGMA: Sinkhorn-Guided Masked Video Modeling</a> <span class="news-tag tag-paper">paper</span></span>
-    </li>
-    <li>
-      <span class="news-date">Jun 2024</span>
-      <span class="news-text">Gave talks at TNO in The Hague and at the National Institute for Informatics in Tokyo <span class="news-tag tag-talk">talk</span></span>
-    </li>
-    <li>
-      <span class="news-date">Apr 2024</span>
-      <span class="news-text">Teaching Assistant for the <a href="https://uvafomo.github.io/">Foundation Models (FoMo)</a> course <span class="news-tag tag-misc">teaching</span></span>
-    </li>
-  </ul>
-</section>
+      <article class="research-item" id="tvbench" aria-labelledby="tvbench-title">
+        <div class="research-meta"><span class="topic">Temporal understanding</span><span class="venue">TVBench · BMVC 2025</span><span class="credit">Equal contribution</span></div>
+        <div class="research-copy">
+          <h3 id="tvbench-title"><a href="https://arxiv.org/abs/2410.07752">Lost in Time: A New Temporal Benchmark for VideoLLMs</a></h3>
+          <p class="authors">D. Cores*, <strong>M. Dorkenwald*</strong>, M. Mucientes, C. Snoek, Y. Asano</p>
+          <p>We introduce TVBench, a 10-task benchmark for temporal understanding in video–language models. It addresses shortcuts in existing benchmarks that let models answer from text or a single frame.</p>
+          <div class="resource-links" aria-label="TVBench resources">
+            <a href="https://arxiv.org/abs/2410.07752">Paper</a>
+            <a href="https://github.com/daniel-cores/tvbench#download-and-evaluation">Evaluation code</a>
+            <a href="https://huggingface.co/datasets/FunAILab/TVBench">Dataset</a>
+          </div>
+        </div>
+      </article>
 
-<!-- RESEARCH -->
-<section id="research">
-  <div class="section-header">
-    <h2>Research</h2>
-    <div class="section-line"></div>
-  </div>
+      <article class="research-item" id="elastic" aria-labelledby="elastic-title">
+        <div class="research-meta"><span class="topic">Efficient visual computation</span><span class="venue">NeurIPS 2025</span><span class="credit">Equal contribution</span></div>
+        <div class="research-copy">
+          <h3 id="elastic-title"><a href="https://elastic.ashita.nl/">Elastic ViTs from Pretrained Models without Retraining</a></h3>
+          <p class="authors">W. Simoncini*, <strong>M. Dorkenwald*</strong>, T. Blankevoort, C. Snoek, Y. Asano</p>
+          <p>We introduce SnapViT, a structured pruning method that adapts pretrained vision transformers to different compute budgets without retraining or labeled data.</p>
+          <p class="research-detail">Evaluated on DINO, SigLIPv2, DeiT, and AugReg models.</p>
+          <div class="resource-links" aria-label="Elastic ViTs resources">
+            <a href="https://arxiv.org/abs/2510.17700">Paper</a>
+            <a href="https://github.com/WalterSimoncini/SnapViT">Code</a>
+            <a href="https://github.com/WalterSimoncini/SnapViT#inference">Inference example</a>
+            <a href="https://elastic.ashita.nl/">Project</a>
+          </div>
+        </div>
+      </article>
 
-  <div class="video-stack">
-    <div class="stack-layer">
-      <div class="stack-icon">&#x1F52C;</div>
-      <div class="stack-label">Evaluation</div>
-      <div class="stack-desc">Proposing new video-language benchmark</div>
-      <div class="stack-papers"><a href="https://arxiv.org/abs/2410.07752">TVBench</a></div>
-    </div>
-    <div class="stack-layer">
-      <div class="stack-icon">&#x1F4AC;</div>
-      <div class="stack-label">Vision-Language</div>
-      <div class="stack-desc">Connecting vision with LLMs</div>
-      <div class="stack-papers"><a href="https://quva-lab.github.io/PIN/">PIN</a> &middot; <a href="https://jmiemirza.github.io/GLOV/">GLOV</a></div>
-    </div>
-    <div class="stack-layer">
-      <div class="stack-icon">&#x1F9E0;</div>
-      <div class="stack-label">Representation</div>
-      <div class="stack-desc">Learning from videos without supervision</div>
-      <div class="stack-papers"><a href="https://quva-lab.github.io/SIGMA/">SIGMA</a> &middot; <a href="https://arxiv.org/abs/2205.11710">SCVRL</a></div>
-    </div>
-    <div class="stack-layer">
-      <div class="stack-icon">&#x1F39E;&#xFE0F;</div>
-      <div class="stack-label">Synthesis</div>
-      <div class="stack-desc">Video generation based on a single frame</div>
-      <div class="stack-papers"><a href="https://compvis.github.io/image2video-synthesis-using-cINNs/">cINN</a> &middot; <a href="https://compvis.github.io/ipoke/">iPOKE</a></div>
-    </div>
-    <div class="stack-layer">
-      <div class="stack-icon">&#x26A1;</div>
-      <div class="stack-label">Efficiency</div>
-      <div class="stack-desc">Making vision models elastic and deployable</div>
-      <div class="stack-papers"><a href="https://elastic.ashita.nl/">Elastic ViTs</a></div>
-    </div>
-  </div>
-</section>
+      <article class="research-item" id="sigma" aria-labelledby="sigma-title">
+        <div class="research-meta"><span class="topic">Representation learning</span><span class="venue">ECCV 2024</span><span class="credit">Equal contribution</span></div>
+        <div class="research-copy">
+          <h3 id="sigma-title"><a href="https://quva-lab.github.io/SIGMA/">SIGMA: Sinkhorn-Guided Masked Video Modeling</a></h3>
+          <p class="authors">M. Salehi*, <strong>M. Dorkenwald*</strong>, F. Thoker*, E. Gavves, C. Snoek, Y. Asano</p>
+          <p>We jointly learn a video encoder and its prediction targets through masked modeling. Balanced clustering prevents representation collapse and provides targets that capture semantic and temporal information.</p>
+          <div class="resource-links" aria-label="SIGMA resources">
+            <a href="https://arxiv.org/abs/2407.15447">Paper</a>
+            <a href="https://github.com/QUVA-Lab/SIGMA">Code</a>
+            <a href="https://quva-lab.github.io/SIGMA/">Project</a>
+          </div>
+        </div>
+      </article>
+    </section>
 
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="section-header">
-    <h2>Selected Publications</h2>
-    <div class="section-line"></div>
-  </div>
+    <section class="section publications-section container" id="publications" aria-labelledby="publications-title">
+      <div class="section-heading">
+        <h2 id="publications-title">More publications</h2>
+        <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&amp;hl=en">Full list on Google Scholar <span aria-hidden="true">↗</span></a>
+      </div>
+      <article class="publication" id="cache-steering" aria-labelledby="cache-steering-title">
+        <p class="publication-venue">arXiv 2025</p>
+        <div>
+          <h3 id="cache-steering-title"><a href="https://arxiv.org/abs/2507.08799">KV Cache Steering for Controlling Frozen LLMs</a></h3>
+          <p class="authors">M. Belitsky, D. J. Kopiczko, <strong>M. Dorkenwald</strong>, M. J. Mirza, J. R. Glass, C. Snoek, Y. Asano</p>
+          <p class="publication-note">Steering frozen language models with a single intervention in the key–value cache, without fine-tuning or changing the prompt.</p>
+          <div class="resource-links" aria-label="KV Cache Steering resources"><a href="https://arxiv.org/abs/2507.08799">Paper</a><a href="https://github.com/MaxBelitsky/cache-steering">Code</a></div>
+        </div>
+      </article>
+      <article class="publication">
+        <p class="publication-venue">TMLR 2025</p>
+        <div><h3><a href="https://openreview.net/forum?id=kZLANTp6Vw">GLOV: Guided Large Language Models as Implicit Optimizers for Vision Language Models</a></h3><p class="authors">M. J. Mirza, M. Zhao, Z. Mao, S. Doveh, W. Lin, P. Gavrikov, <strong>M. Dorkenwald</strong>, S. Yang, S. Jha, H. Wakaki, Y. Mitsufuji, H. Possegger, R. Feris, L. Karlinsky, J. Glass</p><p class="publication-note">Using LLMs to optimize prompts for downstream vision–language tasks.</p><div class="resource-links"><a href="https://openreview.net/forum?id=kZLANTp6Vw">Paper</a><a href="https://jmiemirza.github.io/GLOV/">Project &amp; code</a></div></div>
+      </article>
+      <details id="earlier-work">
+        <summary>Earlier work · representation learning &amp; generative modeling</summary>
+        <article class="publication">
+          <p class="publication-venue">CVPR Workshops 2022</p>
+          <div><h3><a href="https://arxiv.org/abs/2205.11710">SCVRL: Shuffled Contrastive Video Representation Learning</a></h3><p class="authors"><strong>M. Dorkenwald</strong>, F. Xiao, B. Brattoli, J. Tighe, D. Modolo</p><div class="resource-links"><a href="https://arxiv.org/abs/2205.11710">Paper</a><a href="https://www.amazon.science/publications/scvrl-shuffled-contrastive-video-representation-learning">Project</a></div></div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">CVPR 2021</p>
+          <div><h3><a href="https://arxiv.org/abs/2105.04551">Stochastic Image-to-Video Synthesis using cINNs</a></h3><p class="authors"><strong>M. Dorkenwald</strong>, T. Milbich, A. Blattmann, R. Rombach, K. Derpanis, B. Ommer</p><div class="resource-links"><a href="https://arxiv.org/abs/2105.04551">Paper</a><a href="https://github.com/CompVis/image2video-synthesis-using-cINNs">Code</a><a href="https://compvis.github.io/image2video-synthesis-using-cINNs/">Project</a></div></div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">CVPR 2021</p>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2103.04677">Behavior-Driven Synthesis of Human Dynamics</a></h3>
+            <p class="authors">A. Blattmann*, T. Milbich*, <strong>M. Dorkenwald*</strong>, B. Ommer</p>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2103.04677">Paper</a><a href="https://github.com/CompVis/behavior-driven-video-synthesis">Code</a><a href="https://compvis.github.io/behavior-driven-video-synthesis/">Project</a></div>
+          </div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">ICCV 2021</p>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2107.02790">iPOKE: Poking a Still Image for Controlled Stochastic Video Synthesis</a></h3>
+            <p class="authors">A. Blattmann, T. Milbich, <strong>M. Dorkenwald</strong>, B. Ommer</p>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2107.02790">Paper</a><a href="https://github.com/CompVis/ipoke">Code</a><a href="https://compvis.github.io/ipoke/">Project</a></div>
+          </div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">CVPR 2021</p>
+          <div>
+            <h3><a href="https://arxiv.org/abs/2106.11303">Understanding Object Dynamics for Interactive Image-to-Video Synthesis</a></h3>
+            <p class="authors">A. Blattmann, T. Milbich, <strong>M. Dorkenwald</strong>, B. Ommer</p>
+            <div class="resource-links"><a href="https://arxiv.org/abs/2106.11303">Paper</a><a href="https://github.com/CompVis/interactive-image2video-synthesis">Code</a><a href="https://compvis.github.io/interactive-image2video-synthesis/">Project</a></div>
+          </div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">Nature Machine Intelligence 2021</p>
+          <div>
+            <h3><a href="https://www.nature.com/articles/s42256-021-00326-x">Unsupervised behaviour analysis and magnification (uBAM) using deep learning</a></h3>
+            <p class="authors">B. Brattoli, U. Büchler, <strong>M. Dorkenwald</strong>, P. Reiser, L. Filli, F. Helmchen, A.-S. Wahl, B. Ommer</p>
+            <div class="resource-links"><a href="https://www.nature.com/articles/s42256-021-00326-x">Paper</a><a href="https://github.com/utabuechler/uBAM">Code</a></div>
+          </div>
+        </article>
+        <article class="publication">
+          <p class="publication-venue">CVPR 2020</p>
+          <div><h3><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Dorkenwald_Unsupervised_Magnification_of_Posture_Deviations_Across_Subjects_CVPR_2020_paper.pdf">Unsupervised Magnification of Posture Deviations Across Subjects</a></h3><p class="authors"><strong>M. Dorkenwald*</strong>, U. Büchler*, B. Ommer</p><div class="resource-links"><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Dorkenwald_Unsupervised_Magnification_of_Posture_Deviations_Across_Subjects_CVPR_2020_paper.pdf">Paper</a><a href="https://compvis.github.io/magnify-posture-deviations/">Project</a></div></div>
+        </article>
+      </details>
+    </section>
 
-  <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 14px;">
-    Showing first-author and equal-contribution papers. Full list on <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&hl=de&oi=ao" style="color: var(--accent); text-decoration: none;">Google Scholar</a>. * denotes equal contribution.
-  </p>
+    <section class="experience-section" id="experience" aria-labelledby="experience-title">
+      <div class="container experience-layout">
+        <div class="experience-aside">
+          <h2 id="experience-title">Research experience</h2>
+          <p>Research across industry and academia, with a foundation in representation learning and computational physics.</p>
+        </div>
+        <div>
+          <article class="experience-item">
+            <p class="experience-date">2026–present</p>
+            <div><h3>Mistral AI</h3><p class="experience-role">AI Scientist Intern</p><p class="experience-description">Research on pretraining and post-training multimodal large language models.</p></div>
+          </article>
+          <!-- Add exact internship dates when confirmed; the source profile only supplies the year. -->
+          <article class="experience-item">
+            <p class="experience-date">2026</p>
+            <div><h3>Google DeepMind</h3><p class="experience-role">Student Researcher</p><p class="experience-description">Research on efficient video tokenization and pretraining.</p></div>
+          </article>
+          <article class="experience-item">
+            <p class="experience-date">2022–present</p>
+            <div><h3>University of Amsterdam</h3><p class="experience-role">PhD Candidate · QUVA Lab / ELLIS</p><p class="experience-description">Spatial grounding in vision–language models, temporal evaluation, self-supervised video representations, and model efficiency. Supervised by Yuki Asano and Cees Snoek.</p></div>
+          </article>
+          <article class="experience-item">
+            <p class="experience-date">2021</p>
+            <div><h3>Amazon Web Services (AWS)</h3><p class="experience-role">Research Intern · Rekognition</p><p class="experience-description">Self-supervised video representation learning. First-author work on <a href="https://arxiv.org/abs/2205.11710">shuffled contrastive learning (SCVRL)</a>.</p></div>
+          </article>
+          <article class="experience-item">
+            <p class="experience-date">2019–2022</p>
+            <div>
+              <h3>Heidelberg University</h3>
+              <p class="experience-role">MSc Computational Physics · CompVis</p>
+              <p class="experience-description">Generative modeling with <a href="https://hci.iwr.uni-heidelberg.de/people/bommer">Björn Ommer</a>’s group, including image-to-video synthesis with conditional normalizing flows. Research visit with <a href="https://www.cs.ryerson.ca/kosta/">Kosta Derpanis</a> in Toronto.</p>
+              <div class="experience-papers">
+                <h4>Papers from this period</h4>
+                <ul class="experience-paper-list">
+                  <li><a href="https://arxiv.org/abs/2105.04551">Stochastic Image-to-Video Synthesis using cINNs</a><span>CVPR 2021 · First author</span></li>
+                  <li><a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Blattmann_Behavior-Driven_Synthesis_of_Human_Dynamics_CVPR_2021_paper.pdf">Behavior-Driven Synthesis of Human Dynamics</a><span>CVPR 2021 · Equal contribution</span></li>
+                  <li><a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Dorkenwald_Unsupervised_Magnification_of_Posture_Deviations_Across_Subjects_CVPR_2020_paper.pdf">Unsupervised Magnification of Posture Deviations Across Subjects</a><span>CVPR 2020 · Equal contribution</span></li>
+                </ul>
+                <details>
+                  <summary>Three further co-authored papers</summary>
+                  <ul class="experience-paper-list">
+                    <li><a href="https://compvis.github.io/ipoke/">iPOKE: Poking a Still Image for Controlled Stochastic Video Synthesis</a><span>ICCV 2021 · Co-author</span></li>
+                    <li><a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Blattmann_Understanding_Object_Dynamics_for_Interactive_Image-to-Video_Synthesis_CVPR_2021_paper.pdf">Understanding Object Dynamics for Interactive Image-to-Video Synthesis</a><span>CVPR 2021 · Co-author</span></li>
+                    <li><a href="https://www.nature.com/articles/s42256-021-00326-x">Unsupervised behaviour analysis and magnification (uBAM) using deep learning</a><span>Nature Machine Intelligence 2021 · Co-author</span></li>
+                  </ul>
+                </details>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <div class="pub-card">
-    <h3>Elastic ViTs from Pretrained Models without Retraining</h3>
-    <div class="pub-authors">W. Simoncini*, <strong>M. Dorkenwald*</strong>, T. Blankevoort, C. Snoek, Y. Asano</div>
-    <div class="pub-venue">NeurIPS 2025</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2510.17700">ArXiv</a>
-      <a href="https://elastic.ashita.nl/">Project</a>
-      <a href="https://elastic.ashita.nl/">Code</a>
-    </div>
-  </div>
+    <section class="updates-section container" aria-labelledby="updates-title">
+      <div class="updates-layout">
+        <h2 id="updates-title">Teaching &amp; community</h2>
+        <div>
+          <ul class="updates">
+            <li><time datetime="2024-11">Nov 2024</time><span>Talk on large-scale video pretraining at the <a href="https://communities.surf.nl/large-scale-computing/artikel/surf-research-bootcamp-2024">SURF Research Bootcamp</a>.</span></li>
+            <li><time datetime="2024-09">Sep 2024</time><span>Co-organized <a href="https://sslwin.org/">Self-Supervised Learning: What is Next?</a> at ECCV 2024.</span></li>
+            <li><time datetime="2024-04">Apr 2024</time><span>Teaching assistant for the <a href="https://uvafomo.github.io/">Foundation Models</a> course at UvA.</span></li>
+          </ul>
+          <details>
+            <summary>News &amp; earlier updates</summary>
+            <ul class="updates">
+              <li><time datetime="2026">2026</time><span>Joined <a href="https://mistral.ai/">Mistral AI</a> as an AI Scientist Intern.</span></li>
+              <li><time datetime="2026-04">Apr 2026</time><span>Joined <strong>Google DeepMind</strong> as a Student Researcher.</span></li>
+              <li><time datetime="2025-09">Sep 2025</time><span><a href="https://elastic.ashita.nl/">Elastic ViTs</a> accepted to NeurIPS 2025.</span></li>
+              <li><time datetime="2025-07">Jul 2025</time><span><a href="https://arxiv.org/abs/2410.07752">TVBench</a> accepted to BMVC 2025.</span></li>
+              <li><time datetime="2025-06">Jun 2025</time><span><a href="https://openreview.net/forum?id=kZLANTp6Vw">GLOV</a> accepted to TMLR.</span></li>
+              <li><time datetime="2024-07">Jul 2024</time><span><a href="https://quva-lab.github.io/SIGMA/">SIGMA</a> accepted to ECCV 2024.</span></li>
+              <li><time datetime="2024-06">Jun 2024</time><span>Research talks at TNO in The Hague and the National Institute of Informatics in Tokyo.</span></li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
 
-  <div class="pub-card">
-    <h3>TVBench: Redesigning Video-Language Evaluation</h3>
-    <div class="pub-authors">D. Cores*, <strong>M. Dorkenwald*</strong>, M. Mucientes, C. Snoek, Y. Asano</div>
-    <div class="pub-venue">BMVC 2025</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2410.07752">ArXiv</a>
-      <a href="https://github.com/daniel-cores/tvbench">Code</a>
-      <a href="https://huggingface.co/datasets/FunAILab/TVBench">HuggingFace</a>
-    </div>
-  </div>
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-inner">
+        <div><h2 id="contact-title">Get in touch</h2><p>For research inquiries and collaborations:</p></div>
+        <div class="contact-links"><span class="email-address">m.dorkenwald [at] gmail [dot] com</span></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="container footer-inner"><p>© 2026 Michael Dorkenwald</p><a href="#home">Back to top <span aria-hidden="true">↑</span></a></div></footer>
 
-  <div class="pub-card">
-    <h3>SIGMA: Sinkhorn-Guided Masked Video Modeling</h3>
-    <div class="pub-authors">M. Salehi*, <strong>M. Dorkenwald*</strong>, F. Thoker*, E. Gavves, C. Snoek, Y. Asano</div>
-    <div class="pub-venue">ECCV 2024</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2407.15447">ArXiv</a>
-      <a href="https://quva-lab.github.io/SIGMA/">Project</a>
-      <a href="https://github.com/QUVA-Lab/SIGMA">Code</a>
-    </div>
-  </div>
-
-  <div class="pub-card">
-    <h3>PIN: Positional Insert Unlocks Object Localisation Abilities in VLMs</h3>
-    <div class="pub-authors"><strong>M. Dorkenwald</strong>, N. Barazani, C. Snoek*, Y. Asano*</div>
-    <div class="pub-venue">CVPR 2024</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2402.08657">ArXiv</a>
-      <a href="https://quva-lab.github.io/PIN/">Project</a>
-      <a href="https://github.com/QUVA-Lab/PIN/">Code</a>
-    </div>
-  </div>
-
-  <div class="pub-card">
-    <h3>SCVRL: Shuffled Contrastive Video Representation Learning</h3>
-    <div class="pub-authors"><strong>M. Dorkenwald</strong>, F. Xiao, B. Brattoli, J. Tighe, D. Modolo</div>
-    <div class="pub-venue">CVPR 2022 Workshop</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2205.11710">ArXiv</a>
-      <a href="https://www.amazon.science/publications/scvrl-shuffled-contrastive-video-representation-learning">Project</a>
-    </div>
-  </div>
-
-  <div class="pub-card">
-    <h3>Stochastic Image-to-Video Synthesis using cINNs</h3>
-    <div class="pub-authors"><strong>M. Dorkenwald</strong>, T. Milbich, A. Blattmann, R. Rombach, K. Derpanis, B. Ommer</div>
-    <div class="pub-venue">CVPR 2021</div>
-    <div class="pub-links">
-      <a href="https://arxiv.org/abs/2105.04551">ArXiv</a>
-      <a href="https://compvis.github.io/image2video-synthesis-using-cINNs/">Project</a>
-      <a href="https://github.com/CompVis/image2video-synthesis-using-cINNs">Code</a>
-    </div>
-  </div>
-
-  <div class="pub-card">
-    <h3>Unsupervised Magnification of Posture Deviations Across Subjects</h3>
-    <div class="pub-authors"><strong>M. Dorkenwald*</strong>, U. B&uuml;chler*, B. Ommer</div>
-    <div class="pub-venue">CVPR 2020</div>
-    <div class="pub-links">
-      <a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Dorkenwald_Unsupervised_Magnification_of_Posture_Deviations_Across_Subjects_CVPR_2020_paper.pdf">Paper</a>
-      <a href="https://compvis.github.io/magnify-posture-deviations/">Project</a>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-header">
-    <h2>Experience</h2>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="exp-item">
-    <div class="exp-when">2026 &mdash; present</div>
-    <div>
-      <div class="exp-where">Google DeepMind</div>
-      <div class="exp-role">Student Researcher</div>
-      <div class="exp-desc">Research on efficient video learning.</div>
-    </div>
-  </div>
-
-  <div class="exp-item">
-    <div class="exp-when">2022 &mdash; present</div>
-    <div>
-      <div class="exp-where">University of Amsterdam</div>
-      <div class="exp-role">PhD Candidate &mdash; QUVA Lab / ELLIS</div>
-      <div class="exp-desc">Self-supervised video learning, vision-language models, and efficient foundation models. Supervised by Yuki Asano and Cees Snoek.</div>
-    </div>
-  </div>
-
-  <div class="exp-item">
-    <div class="exp-when">2022</div>
-    <div>
-      <div class="exp-where">AWS Rekognition</div>
-      <div class="exp-role">Research Intern</div>
-      <div class="exp-desc">Self-supervised video representation learning.</div>
-    </div>
-  </div>
-
-  <div class="exp-item">
-    <div class="exp-when">2019 &mdash; 2022</div>
-    <div>
-      <div class="exp-where">Heidelberg University</div>
-      <div class="exp-role">MSc Computational Physics</div>
-      <div class="exp-desc">Research on generative video modeling with Bj&ouml;rn Ommer's CompVis group. Research visit at Kosta Derpanis's lab in Toronto.</div>
-    </div>
-  </div>
-</section>
-
-
-<footer>
-  <p>&copy; 2026 Michael Dorkenwald</p>
-  <p style="margin-top: 8px;">
-    <a href="mailto:m.dorkenwald@gmail.com">email</a> &middot;
-    <a href="https://scholar.google.com/citations?user=KY5nvLUAAAAJ&hl=de&oi=ao">scholar</a> &middot;
-    <a href="https://github.com/mdorkenw">github</a> &middot;
-    <a href="https://www.linkedin.com/in/michael-dorkenwald-29303b182">linkedin</a>
-  </p>
-</footer>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FMGWZGV2XD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-FMGWZGV2XD');
-</script>
-<script>
-  window.addEventListener('scroll', function() {
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var progress = (scrollTop / scrollHeight) * 100;
-    document.getElementById('progressBar').style.height = progress + '%';
-  });
-</script>
-
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FMGWZGV2XD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FMGWZGV2XD');
+  </script>
 </body>
 </html>
